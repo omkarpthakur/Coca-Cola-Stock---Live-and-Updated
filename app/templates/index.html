@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coca-Cola Stock Analysis & Prediction</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<div id="data-source" class="data-source-message" style="display: none;">
+    <i class="fas fa-info-circle"></i>
+    <span id="data-source-text">Using sample data</span>
+</div>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Coca-Cola Stock Analysis & Prediction</h1>
+            <div class="last-updated">
+                Last Updated: <span id="last-updated">Loading...</span>
+                <button onclick="refreshData()" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- Statistics Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-value" id="current-price">--</div>
+                <div class="stat-label">Current Price</div>
+                <div class="stat-change" id="price-change">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="volume">--</div>
+                <div class="stat-label">Volume</div>
+                <div class="stat-sub">Avg: <span id="avg-volume">--</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="high-52week">--</div>
+                <div class="stat-label">52-Week High</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="low-52week">--</div>
+                <div class="stat-label">52-Week Low</div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <button onclick="trainModel()" class="btn btn-primary">
+                <i class="fas fa-brain"></i> Train Prediction Model
+            </button>
+            <button onclick="getPredictions()" class="btn btn-success">
+                <i class="fas fa-crystal-ball"></i> Generate Predictions
+            </button>
+            <button onclick="refreshModel()" class="btn btn-warning">
+                <i class="fas fa-redo"></i> Retrain Model
+            </button>
+        </div>
+
+        <!-- Model Training Status -->
+        <div id="training-status" class="status-message" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span id="training-text">Training model...</span>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-container">
+            <div class="chart" id="price-chart">
+                <div class="chart-placeholder">
+                    <i class="fas fa-spinner fa-spin"></i> Loading price chart...
+                </div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-half" id="volume-chart">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-spinner fa-spin"></i> Loading volume chart...
+                    </div>
+                </div>
+                <div class="chart-half" id="returns-chart">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-spinner fa-spin"></i> Loading returns distribution...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prediction Results -->
+        <div id="prediction-results" class="prediction-container" style="display: none;">
+            <h3><i class="fas fa-crystal-ball"></i> 30-Day Price Predictions</h3>
+            <div class="prediction-stats">
+                <div id="prediction-metrics"></div>
+            </div>
+            <div class="predictions-table-container">
+                <table id="predictions-table" class="predictions-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Predicted Price</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody id="predictions-body">
+                        <!-- Prediction rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+                <p>Loading data...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
