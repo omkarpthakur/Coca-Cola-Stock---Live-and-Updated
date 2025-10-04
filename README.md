@@ -1,3 +1,5 @@
+<img width="1034" height="827" alt="image" src="https://github.com/user-attachments/assets/20ec5206-0c44-4be0-ba8c-642e8db1add5" />
+
 #  Coca-Cola Stock Analysis & Prediction
 
 A machine learning-based stock price prediction system that analyzes Coca-Cola stock data using the Yahoo Finance API and Random Forest algorithm.
